@@ -1,0 +1,12 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "amazon-kinesis-video-streams-producer-c",
+    srcs = glob(["src/source/**"]),
+    hdrs = glob(["src/include/**"]),
+    strip_include_prefix = "src/include",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@amazon-kinesis-video-streams-pic//:client",
+    ],
+)

@@ -1,0 +1,86 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "client",
+    srcs = glob(["src/client/src/**"]),
+    hdrs = glob(["src/client/include/com/amazonaws/kinesis/video/client/**"]),
+    strip_include_prefix = "src/client/include/",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":common",
+        ":utils",
+        ":mkvgen",
+        ":view",
+        ":state",
+    ],
+)
+
+cc_library(
+    name = "common",
+    srcs = glob(["src/common/src/**"]),
+    hdrs = glob(["src/common/include/**"]),
+    strip_include_prefix = "src/common/include",
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "utils",
+    srcs = glob(["src/utils/src/**"]),
+    hdrs = glob(["src/utils/include/com/amazonaws/kinesis/video/utils/**"]),
+    strip_include_prefix = "src/utils/include/",
+    visibility = ["//visibility:public"],
+    deps =[
+        ":common",
+    ],
+)
+
+cc_library(
+    name = "mkvgen",
+    srcs = glob(["src/mkvgen/src/**"]),
+    hdrs = glob(["src/mkvgen/include/**"]),
+    strip_include_prefix = "src/mkvgen/include/",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":common",
+        ":utils",
+    ],
+)
+
+cc_library(
+    name = "heap",
+    srcs = glob(["src/heap/src/**"]),
+    hdrs = glob(["src/heap/include/**"]),
+    strip_include_prefix = "src/heap/include",
+    visibility = ["//visibility:public"],
+    deps =[
+        ":common",
+        ":utils",
+    ],
+)
+
+cc_library(
+    name = "view",
+    srcs = glob(["src/view/src/**"]),
+    hdrs = glob(["src/view/include/**"]),
+    strip_include_prefix = "src/view/include/",
+    visibility = ["//visibility:public"],
+    deps =[
+        ":common",
+        ":utils",
+        ":heap",
+    ],
+)
+
+cc_library(
+    name = "state",
+    srcs = glob(["src/state/src/**"]),
+    hdrs = glob(["src/state/include/**"]),
+    strip_include_prefix = "src/state/include/",
+    visibility = ["//visibility:public"],
+    deps =[
+        ":common",
+        ":utils",
+        ":heap",
+        ":mkvgen",
+    ],
+)
