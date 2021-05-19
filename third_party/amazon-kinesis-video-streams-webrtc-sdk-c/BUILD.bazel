@@ -11,4 +11,7 @@ cc_library(
         "@amazon-kinesis-video-streams-producer-c//:amazon-kinesis-video-streams-producer-c",
     ],
     visibility = ["//visibility:public"],
+    defines = [
+        "KVS_USE_OPENSSL",
+    ],
 )

@@ -8,5 +8,9 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         "@amazon-kinesis-video-streams-pic//:client",
+        "@boringssl//:crypto",
+    ],
+    defines = [
+        "KVS_USE_OPENSSL",
     ],
 )

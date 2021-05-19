@@ -1,4 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 http_archive(
      name = "amazon-kinesis-video-streams-pic",
@@ -22,4 +23,10 @@ http_archive(
      sha256 = "cda26dd280628e04cc57d96321fa25bb4ba64473d9979b5470a37f64bb3acc5a",
      build_file = "@//third_party/amazon-kinesis-video-streams-webrtc-sdk-c:BUILD.bazel",
      strip_prefix = "amazon-kinesis-video-streams-webrtc-sdk-c-3af48f92b45d989b553ff17305a99f8e3dc40f7e"
+)
+
+git_repository(
+    name = "boringssl",
+    commit = "38f2c0e84c67e778ce5db89b44660ea46d26f86c",
+    remote = "https://boringssl.googlesource.com/boringssl",
 )
