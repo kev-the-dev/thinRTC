@@ -10,4 +10,5 @@ cc_library(
         "@amazon-kinesis-video-streams-pic//:common",
         "@amazon-kinesis-video-streams-producer-c//:amazon-kinesis-video-streams-producer-c",
     ],
+    visibility = ["//visibility:public"],
 )
