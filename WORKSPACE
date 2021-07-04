@@ -25,6 +25,15 @@ http_archive(
      strip_prefix = "amazon-kinesis-video-streams-webrtc-sdk-c-3af48f92b45d989b553ff17305a99f8e3dc40f7e"
 )
 
+http_archive(
+     name = "curl",
+     urls = ["https://github.com/curl/curl/archive/6b951a6928811507d493303b2878e848c077b471.zip"],
+     sha256 = "36c22fa62fed7807d489089fa24b05e01c48fcae3a85fa42e4f325e602f1a465",
+     build_file = "@//third_party/curl:BUILD.bazel",
+     strip_prefix = "curl-6b951a6928811507d493303b2878e848c077b471",
+)
+
+
 git_repository(
     name = "boringssl",
     commit = "38f2c0e84c67e778ce5db89b44660ea46d26f86c",

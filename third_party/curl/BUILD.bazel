@@ -1,0 +1,23 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+
+cc_library(
+    name = "curl",
+    srcs = glob([
+        "lib/**/*.c",
+    ]),
+    hdrs = glob([
+        "include/curl/*.h",
+        "lib/**/*.h",
+    ]),
+    copts = [
+        "-DOS=\"os\"",
+        "-DCURL_EXTERN_SYMBOL=__attribute__((__visibility__(\"default\")))",
+        "-DHTTP_ONLY=1"
+    ],
+    includes = [
+        "include/",
+        "lib/",
+    ],
+    visibility = ["//visibility:public"],
+)
