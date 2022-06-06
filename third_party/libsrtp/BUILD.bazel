@@ -1,0 +1,17 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "libsrtp",
+    srcs = glob([
+        "lib/**/*.c",
+    ]),
+    hdrs = glob([
+        "include/**",
+    ]),
+    strip_include_prefix = "include",
+    include_prefix = "srtp2",
+    defines = [
+        "LIBSRTP_ENABLE_OPENSSL",
+    ],
+    visibility = ["//visibility:public"],
+)

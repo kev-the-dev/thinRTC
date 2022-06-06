@@ -2,16 +2,33 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 
 cc_library(
     name = "amazon-kinesis-video-streams-webrtc-sdk-c",
-    srcs = glob(["src/source/**"]),
+    srcs = glob(
+        include = [
+            "src/source/**",
+        ],
+        exclude = [
+            # amazon-kinesis-video-streams-webrtc-sdk-c provides 2 crypto implementations.
+            # We use src/source/Crypto/Tls_openssl.c instead of src/source/Crypto/Tls_mbedtls.c.
+            #
+            # Correspoding CMAKE rule: https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-c/blob/ced19d02ed6fbc1e59dd63bc19d847c5ec5ebf47/CMakeLists.txt#L278
+            "src/source/Crypto/Tls_mbedtls.c"
+        ],
+    ),
     hdrs = glob(["src/include/**"]),
     strip_include_prefix = "src/include",
     deps = [
         "@amazon-kinesis-video-streams-pic//:client",
         "@amazon-kinesis-video-streams-pic//:common",
         "@amazon-kinesis-video-streams-producer-c//:amazon-kinesis-video-streams-producer-c",
+        "@boringssl//:crypto",
+        "@boringssl//:ssl",
+        "@libsrtp//:libsrtp",
+        "@usrsctp//:usrsctp",
     ],
     visibility = ["//visibility:public"],
     defines = [
         "KVS_USE_OPENSSL",
+        "KVS_BUILD_WITH_CURL",
+        "NO_BUILD_SIGNALING",
     ],
 )

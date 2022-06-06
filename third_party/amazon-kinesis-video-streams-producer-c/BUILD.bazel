@@ -2,15 +2,17 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 
 cc_library(
     name = "amazon-kinesis-video-streams-producer-c",
-    srcs = glob(["src/source/**"]),
+    srcs = glob(["src/source/**"], exclude=["src/source/Common/Lws/**"]),
     hdrs = glob(["src/include/**"]),
     strip_include_prefix = "src/include",
     visibility = ["//visibility:public"],
     deps = [
         "@amazon-kinesis-video-streams-pic//:client",
         "@boringssl//:crypto",
+        "@curl//:curl",
     ],
     defines = [
         "KVS_USE_OPENSSL",
+        "KVS_BUILD_WITH_CURL",
     ],
 )

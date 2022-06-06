@@ -1,0 +1,52 @@
+diff --git a/src/include/com/amazonaws/kinesis/video/webrtcclient/Include.h b/src/include/com/amazonaws/kinesis/video/webrtcclient/Include.h
+index bf91f41c4..90be48f1f 100644
+--- a/src/include/com/amazonaws/kinesis/video/webrtcclient/Include.h
++++ b/src/include/com/amazonaws/kinesis/video/webrtcclient/Include.h
+@@ -1869,6 +1869,8 @@ PUBLIC_API STATUS discoverNatBehavior(PCHAR, NAT_BEHAVIOR*, NAT_BEHAVIOR*, IceSe
+  */
+ PUBLIC_API PCHAR getNatBehaviorStr(NAT_BEHAVIOR natBehavior);
+ 
++
++#ifndef NO_BUILD_SIGNALING
+ /**
+  * @brief Creates a Signaling client and returns a handle to it
+  *
+@@ -2009,6 +2011,7 @@ PUBLIC_API STATUS signalingClientDeleteSync(SIGNALING_CLIENT_HANDLE);
+  * @param[in,out] PSignalingClientMetrics Signaling stats
+  */
+ PUBLIC_API STATUS signalingClientGetMetrics(SIGNALING_CLIENT_HANDLE, PSignalingClientMetrics);
++#endif
+ 
+ /**
+  * @brief Get the relevant/all metrics based on the RTCStatsType field. This does not include
+diff --git a/src/source/Include_i.h b/src/source/Include_i.h
+index d767ed668..9eaac7310 100644
+--- a/src/source/Include_i.h
++++ b/src/source/Include_i.h
+@@ -52,7 +52,9 @@ extern "C" {
+ #define INET6 1
+ #include <usrsctp.h>
+ 
++#ifndef NO_BUILD_SIGNALING
+ #include <libwebsockets.h>
++#endif
+ 
+ #if !defined __WINDOWS_BUILD__
+ #include <signal.h>
+@@ -149,11 +151,16 @@ STATUS generateJSONSafeString(PCHAR, UINT32);
+ #include "Rtp/Codecs/RtpH264Payloader.h"
+ #include "Rtp/Codecs/RtpOpusPayloader.h"
+ #include "Rtp/Codecs/RtpG711Payloader.h"
++#include <poll.h>
++
++#ifndef NO_BUILD_SIGNALING
+ #include "Signaling/FileCache.h"
+ #include "Signaling/Signaling.h"
+ #include "Signaling/ChannelInfo.h"
+ #include "Signaling/StateMachine.h"
+ #include "Signaling/LwsApiCalls.h"
++#endif
++
+ #include "Metrics/Metrics.h"
+ 
+ ////////////////////////////////////////////////////

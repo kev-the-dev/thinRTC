@@ -1,0 +1,35 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "usrsctp",
+    strip_include_prefix = "usrsctplib",
+    srcs = glob(
+        include = [
+            "usrsctplib/netinet/*.c",
+            "usrsctplib/netinet/*.h",
+            "usrsctplib/netinet6/*.c",
+            "usrsctplib/netinet6/*.h",
+            "usrsctplib/*.c",
+            "usrsctplib/*.h",
+        ],
+        exclude = [
+            "usrsctplib/usrsctp.h",
+        ],
+    ),
+    hdrs = ["usrsctplib/usrsctp.h"],
+    defines = [
+        "__Userspace_os_Linux",
+        "__Userspace__",
+        "SCTP_SIMPLE_ALLOCATOR",
+        "SCTP_PROCESS_LEVEL_LOCKS",
+        "_GNU_SOURCE",
+        "HAVE_SYS_QUEUE_H",
+        "HAVE_LINUX_IF_ADDR_H",
+        "HAVE_LINUX_RTNETLINK_H",
+        "HAVE_NETINET_IP_ICMP_H",
+    ],
+    includes = [
+        "usrsctplib/",
+    ],
+    visibility = ["//visibility:public"],
+)
