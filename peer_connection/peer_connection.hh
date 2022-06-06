@@ -18,11 +18,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <memory>
+
 namespace thinrtc {
+
+class PeerConnectionImpl;
 
 class PeerConnection {
 public:
     PeerConnection();
+private:
+    std::unique_ptr<PeerConnectionImpl> impl_;
 };
 
 }

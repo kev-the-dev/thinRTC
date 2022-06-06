@@ -18,13 +18,50 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <memory>
+
 #include "peer_connection/peer_connection.hh"
 #include "com/amazonaws/kinesis/video/webrtcclient/Include.h"
 
+namespace {
+
+struct RtcPeerConnectionDeleter {
+    void operator()(RtcPeerConnection* connection) {
+
+    }
+};
+
+using RtcPeerConnectionUniquePtr = std::unique_ptr<RtcPeerConnection, RtcPeerConnectionDeleter>;
+
+std::unique_ptr<RtcPeerConnection> newRtcPeerConnection(PRtcConfiguration config) {
+    RtcPeerConnection* peer = nullptr;
+    createPeerConnection(config, &peer);
+    return RtcPeerConnectionUniquePtr(peer);
+}
+
+}
+
 namespace thinrtc {
 
-PeerConnection::PeerConnection() {
+class PeerConnectionImpl {
+public:
+    PeerConnectionImpl() {
+        RtcConfiguration config;
+        rtc_peer_connection_ = newRtcPeerConnection(&config);
+    }
+private:
+    RtcPeerConnectionUniquePtr rtc_peer_connection_;
+};
 
+
+struct RTCPeerConnectionDeleter{
+    operator() {
+
+    }
+}
+
+PeerConnection::PeerConnection() {
+    impl_ = std::make_unique<PeerConnectionImpl>();
 }
 
 }
