@@ -54,8 +54,9 @@ http_archive(
 )
 
 
+# Upgrading: use latest commit from https://github.com/google/boringssl/commits/master-with-bazel
 git_repository(
     name = "boringssl",
-    commit = "38f2c0e84c67e778ce5db89b44660ea46d26f86c",
+    commit = "1f849f2accd2b12c53fd9963f957f2acb80a9d2d",
     remote = "https://boringssl.googlesource.com/boringssl",
 )

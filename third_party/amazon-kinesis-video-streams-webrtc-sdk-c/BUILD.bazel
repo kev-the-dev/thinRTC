@@ -11,7 +11,9 @@ cc_library(
             # We use src/source/Crypto/Tls_openssl.c instead of src/source/Crypto/Tls_mbedtls.c.
             #
             # Correspoding CMAKE rule: https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-c/blob/ced19d02ed6fbc1e59dd63bc19d847c5ec5ebf47/CMakeLists.txt#L278
-            "src/source/Crypto/Tls_mbedtls.c"
+            "src/**/*_mbedtls.c",
+            # 
+            "src/source/Signaling/**"
         ],
     ),
     hdrs = glob(["src/include/**"]),
