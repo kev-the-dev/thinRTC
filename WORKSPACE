@@ -24,6 +24,11 @@ http_archive(
      build_file = "@//third_party/amazon-kinesis-video-streams-webrtc-sdk-c:BUILD.bazel",
      strip_prefix = "amazon-kinesis-video-streams-webrtc-sdk-c-ced19d02ed6fbc1e59dd63bc19d847c5ec5ebf47",
      patches = [
+          # Patch PR to add a flag which disables building the Amazon signaling protocol, which
+          # adds a complicated dependency for libwebsockets, and is not needed here.
+          #
+          # https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-c/pull/1285
+          # https://github.com/kev-the-dev/amazon-kinesis-video-streams-webrtc-sdk-c/commit/42e67b111f68906e58fd1770042c05923b4b2657
           "@//third_party/amazon-kinesis-video-streams-webrtc-sdk-c:flag-no-signaling.diff"
      ],
      patch_args = ["-p1"]
