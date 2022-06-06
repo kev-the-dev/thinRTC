@@ -18,9 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <iostream>
+#include "peer_connection/peer_connection.hh"
+#include "com/amazonaws/kinesis/video/webrtcclient/Include.h"
 
-int main(int argc, char** argv) {
-  std::cout << "Hello world" << std::endl;
-  return 0;
+namespace thinrtc {
+
+PeerConnection::PeerConnection() {
+
+}
+
 }

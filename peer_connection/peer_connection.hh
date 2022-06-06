@@ -18,9 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <iostream>
+namespace thinrtc {
 
-int main(int argc, char** argv) {
-  std::cout << "Hello world" << std::endl;
-  return 0;
+class PeerConnection {
+public:
+    PeerConnection();
+};
+
 }

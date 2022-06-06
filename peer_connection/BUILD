@@ -18,10 +18,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@rules_cc//cc:defs.bzl", "cc_library")
 
-cc_binary(
-    name = "hello-world",
-    srcs = ["hello-world.cc"],
-    deps = ["//peer_connection:peer_connection"],
+cc_library(
+    name = "peer_connection",
+    srcs = ["peer_connection.cc"],
+    hdrs = ["peer_connection.hh"],
+    deps = ["@amazon-kinesis-video-streams-webrtc-sdk-c//:amazon-kinesis-video-streams-webrtc-sdk-c"],
+    visibility = ["//visibility:public"],
 )
