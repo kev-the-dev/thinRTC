@@ -19,8 +19,10 @@
 // SOFTWARE.
 
 #include <iostream>
+#include "peer_connection/peer_connection.hh"
 
 int main(int argc, char** argv) {
   std::cout << "Hello world" << std::endl;
+  thinrtc::PeerConnection pc{};
   return 0;
 }

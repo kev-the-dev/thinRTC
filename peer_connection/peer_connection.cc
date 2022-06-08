@@ -33,7 +33,7 @@ struct RtcPeerConnectionDeleter {
 
 using RtcPeerConnectionUniquePtr = std::unique_ptr<RtcPeerConnection, RtcPeerConnectionDeleter>;
 
-std::unique_ptr<RtcPeerConnection> newRtcPeerConnection(PRtcConfiguration config) {
+RtcPeerConnectionUniquePtr newRtcPeerConnection(PRtcConfiguration config) {
     RtcPeerConnection* peer = nullptr;
     createPeerConnection(config, &peer);
     return RtcPeerConnectionUniquePtr(peer);
@@ -53,15 +53,10 @@ private:
     RtcPeerConnectionUniquePtr rtc_peer_connection_;
 };
 
-
-struct RTCPeerConnectionDeleter{
-    operator() {
-
-    }
-}
-
 PeerConnection::PeerConnection() {
-    impl_ = std::make_unique<PeerConnectionImpl>();
+    impl_ = std::unique_ptr<PeerConnectionImpl>(new PeerConnectionImpl{});
 }
+
+PeerConnection::~PeerConnection() = default;
 
 }

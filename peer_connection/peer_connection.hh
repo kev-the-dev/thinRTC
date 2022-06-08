@@ -27,6 +27,7 @@ class PeerConnectionImpl;
 class PeerConnection {
 public:
     PeerConnection();
+    ~PeerConnection();
 private:
     std::unique_ptr<PeerConnectionImpl> impl_;
 };
