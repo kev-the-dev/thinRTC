@@ -25,4 +25,7 @@ namespace thinrtc {
 RtcPeerConnectionState from_kinesis(int state);
 int to_kinesis(RtcPeerConnectionState state);
 
+SDPType from_kinesis(int state);
+int to_kinesis(SDPType state);
+
 }

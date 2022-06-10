@@ -31,4 +31,10 @@ enum class RtcPeerConnectionState {
     CLOSED
 };
 
+enum class SDPType {
+    INVALID = 0,
+    OFFER,
+    ANSWER
+};
+
 }

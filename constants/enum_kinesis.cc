@@ -79,4 +79,28 @@ int to_kinesis(RtcPeerConnectionState state) {
     return 0;
 }
 
+SDPType from_kinesis(int state) {
+    switch (state) {
+        case SDP_TYPE_OFFER: {
+            return SDPType::OFFER;
+        }
+        case SDP_TYPE_ANSWER: {
+            return SDPType::ANSWER;
+        }
+    }
+    return SDPType::INVALID;
+}
+
+int to_kinesis(SDPType state) {
+    switch (state) {
+        case (SDPType::OFFER) {
+            return SDP_TYPE_OFFER;
+        }
+        case (SDPType::ANSWER) {
+            return SDP_TYPE_ANSWER;
+        }
+    }
+    return 0;
+}
+
 }
