@@ -26,7 +26,6 @@ def kinesis_library(name, path, visibility=["//visibility:public"], deps=[]):
     srcs_tmpl = paths.join(path, "src/**/*.h")
     hdrs_path = paths.join(path, "include")
     hdrs_h = paths.join(hdrs_path, "**/*.h")
-    print(srcs_c, hdrs_path, hdrs_h)
     cc_library(
         name = name,
         srcs = native.glob([
