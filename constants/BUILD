@@ -35,3 +35,9 @@ cc_library(
         "@amazon-kinesis-video-streams-webrtc-sdk-c//:amazon-kinesis-video-streams-webrtc-sdk-c",
     ]
 )
+
+cc_library(
+    name = "status",
+    hdrs = ["status.hh"],
+    srcs = ["status.cc"],
+)
