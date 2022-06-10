@@ -41,6 +41,7 @@ cc_library(
     deps = [
         "@amazon-kinesis-video-streams-pic//:client",
         "@amazon-kinesis-video-streams-pic//:common",
+        "@amazon-kinesis-video-streams-pic//:utils",
         "@amazon-kinesis-video-streams-producer-c//:amazon-kinesis-video-streams-producer-c",
         "@boringssl//:crypto",
         "@boringssl//:ssl",

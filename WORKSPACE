@@ -21,6 +21,16 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
+git_repository(
+    name = "bazel_skylib",
+    commit = "ee67264452174896741824ed25ade0f6d58ca642",
+    remote = "https://github.com/bazelbuild/bazel-skylib",
+)
+
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+
+bazel_skylib_workspace()
+
 http_archive(
      name = "amazon-kinesis-video-streams-pic",
      urls = ["https://github.com/awslabs/amazon-kinesis-video-streams-pic/archive/c8325887faa3a4a296c4367b281c778be69875b6.zip"],
@@ -68,6 +78,12 @@ http_archive(
      sha256 = "2d0cf55df09edbc7397f82577e50dfd61df7c1587504d95c4911da46b356a562",
      build_file = "@//third_party/libsrtp:BUILD.bazel",
      strip_prefix = "libsrtp-bd0f27ec0e299ad101a396dde3f7c90d48efc8fc",
+     patches = [
+          # ./configure
+          #  diff -aru -N /dev/null crypto/include/config.h  > ~/indef/code/thinRTC/third_party/libsrtp/cryto_config.patch
+          "@//third_party/libsrtp:cryto_config.patch",
+     ],
+     # patch_args = ["-p1"]
 )
 
 http_archive(

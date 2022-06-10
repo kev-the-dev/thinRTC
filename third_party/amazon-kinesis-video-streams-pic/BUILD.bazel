@@ -19,12 +19,11 @@
 # SOFTWARE.
 
 load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@//tools:kinesis_library.bzl", "kinesis_library")
 
-cc_library(
+kinesis_library(
     name = "client",
-    srcs = glob(["src/client/src/**"]),
-    hdrs = glob(["src/client/include/com/amazonaws/kinesis/video/client/**"]),
-    strip_include_prefix = "src/client/include/",
+    path = "src/client",
     visibility = ["//visibility:public"],
     deps = [
         ":common",
@@ -35,30 +34,24 @@ cc_library(
     ],
 )
 
-cc_library(
+kinesis_library(
     name = "common",
-    srcs = glob(["src/common/src/**"]),
-    hdrs = glob(["src/common/include/**"]),
-    strip_include_prefix = "src/common/include",
+    path = "src/common",
     visibility = ["//visibility:public"],
 )
 
-cc_library(
+kinesis_library(
     name = "utils",
-    srcs = glob(["src/utils/src/**"]),
-    hdrs = glob(["src/utils/include/com/amazonaws/kinesis/video/utils/**"]),
-    strip_include_prefix = "src/utils/include/",
+    path = "src/utils",
     visibility = ["//visibility:public"],
     deps =[
         ":common",
     ],
 )
 
-cc_library(
+kinesis_library(
     name = "mkvgen",
-    srcs = glob(["src/mkvgen/src/**"]),
-    hdrs = glob(["src/mkvgen/include/**"]),
-    strip_include_prefix = "src/mkvgen/include/",
+    path = "src/mkvgen",
     visibility = ["//visibility:public"],
     deps = [
         ":common",
@@ -66,11 +59,9 @@ cc_library(
     ],
 )
 
-cc_library(
+kinesis_library(
     name = "heap",
-    srcs = glob(["src/heap/src/**"]),
-    hdrs = glob(["src/heap/include/**"]),
-    strip_include_prefix = "src/heap/include",
+    path = "src/heap",
     visibility = ["//visibility:public"],
     deps =[
         ":common",
@@ -78,11 +69,9 @@ cc_library(
     ],
 )
 
-cc_library(
+kinesis_library(
     name = "view",
-    srcs = glob(["src/view/src/**"]),
-    hdrs = glob(["src/view/include/**"]),
-    strip_include_prefix = "src/view/include/",
+    path = "src/view",
     visibility = ["//visibility:public"],
     deps =[
         ":common",
@@ -91,11 +80,9 @@ cc_library(
     ],
 )
 
-cc_library(
+kinesis_library(
     name = "state",
-    srcs = glob(["src/state/src/**"]),
-    hdrs = glob(["src/state/include/**"]),
-    strip_include_prefix = "src/state/include/",
+    path = "src/state",
     visibility = ["//visibility:public"],
     deps =[
         ":common",

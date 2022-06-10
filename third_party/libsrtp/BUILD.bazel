@@ -20,16 +20,121 @@
 
 load("@rules_cc//cc:defs.bzl", "cc_library")
 
+
 cc_library(
-    name = "libsrtp",
-    srcs = glob([
-        "lib/**/*.c",
+    name = "config_lib",
+    hdrs = ["crypto/include/config.h"],
+    strip_include_prefix = "crypto/include",
+)
+
+cc_library(
+    name = "shared_hdrs",
+    hdrs = [
+        "include/srtp.h",
+        "include/ut_sim.h",
+    ],
+    strip_include_prefix = "include",
+)
+
+cc_library(
+    name = "cipher_test_case_header",
+    hdrs = [
+        "crypto/cipher/cipher_test_cases.h",
+    ],
+    strip_include_prefix = "crypto/cipher",
+)
+
+cc_library(
+    name = "hash_test_case_header",
+    hdrs = [
+        "crypto/hash/auth_test_cases.h",
+    ],
+    strip_include_prefix = "crypto/hash",
+)
+
+cc_library(
+    name = "crypto",
+    srcs = glob(include = [
+        "crypto/**/*.c",
+    ], exclude = [
+        "crypto/test/**/*.c",
+        "crypto/**/*_mbedtls.c*",
+        "crypto/**/*_nss.c*",
+        "crypto/cipher/aes.c",
+        "crypto/cipher/aes_icm.c",
+        "crypto/hash/hmac.c",
     ]),
     hdrs = glob([
-        "include/**",
+        "crypto/include/**/*.h",
+    ]),
+    deps = [
+        ":shared_hdrs",
+        ":cipher_test_case_header",
+        ":hash_test_case_header",
+        "@boringssl//:crypto",
+        "@boringssl//:ssl",
+    ],
+    defines = [
+        "LIBSRTP_ENABLE_OPENSSL",
+        "OPENSSL",
+        "HAVE_CONFIG_H",
+        "GCM",
+
+        # 
+        "CPU_CISC",
+        "HAVE_ARPA_INET_H",
+        "HAVE_BYTESWAP_H",
+        "HAVE_INET_ATON",
+        "HAVE_INET_PTON",
+        "HAVE_INT",
+        "HAVE_INTTYPES_H",
+        "HAVE_MEMORY_H",
+        "HAVE_NETINET_IN_H",
+        "HAVE_SIGACTION",
+        "HAVE_SOCKET",
+        "HAVE_STDINT_H",
+        "HAVE_STDLIB_H",
+        "HAVE_STRINGS_H",
+        "HAVE_STRING_H",
+        "HAVE_SYS_SOCKET_H",
+        "HAVE_SYS_STAT_H",
+        "HAVE_SYS_TYPES_H",
+        "HAVE_SYS_UIO_H",
+        "HAVE_UINT",
+        "HAVE_UNISTD_H",
+        "HAVE_USLEEP",
+        "STDC_HEADERS",
+        "HAVE_UINT64_T",
+    ],
+    strip_include_prefix = "crypto/include",
+)
+
+cc_library(
+    name= "libsrtp_headers_2",
+    hdrs = glob([
+        "include/*.h",
+        "include/**/*.h",
     ]),
     strip_include_prefix = "include",
     include_prefix = "srtp2",
+)
+
+cc_library(
+    name = "libsrtp",
+    srcs = glob([
+        "srtp/*.c",
+    ]),
+    hdrs = glob([
+        "include/*.h",
+        "include/**/*.h",
+    ]),
+    deps = [
+        ":config_lib",
+        ":crypto",
+        ":libsrtp_headers_2",
+    ],
+    strip_include_prefix = "include",
+    # include_prefix = "srtp2",
     defines = [
         "LIBSRTP_ENABLE_OPENSSL",
     ],
