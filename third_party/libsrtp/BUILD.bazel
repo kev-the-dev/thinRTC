@@ -109,6 +109,8 @@ cc_library(
     strip_include_prefix = "crypto/include",
 )
 
+# Headers, but with different stip_prefix for
+# some consumers.
 cc_library(
     name= "libsrtp_headers_2",
     hdrs = glob([
