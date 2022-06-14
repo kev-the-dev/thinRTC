@@ -1,6 +1,6 @@
 # thinRTC
 
-*webrtc + Bazel + C++*
+**webrtc + Bazel + C++**
 
 A C++ WebRTC library, with minimal dependencies and a low footprint.
 
